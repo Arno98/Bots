@@ -1,6 +1,6 @@
 import telebot
 
-bot = telebot.TeleBot('1749302554:AAHW9EHN955qJBB0jGs_lNsewj1iwjvkRzI')
+bot = telebot.TeleBot('token')
 keyboard = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
 keyboard.row('Мой баланс', 'Добавить баланс')
 keyboard.row('Мой процент', 'Добавить процент')
