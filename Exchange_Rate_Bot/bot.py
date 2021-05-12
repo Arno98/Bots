@@ -11,7 +11,7 @@ keyboard = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
 keyboard.row('Список валют', 'Конвертировать')
 keyboard.row('История', 'Помощь')
 
-class Felix():
+class ExchangeRateBot():
 	
 	def __init__(self):
 		self.timestamp = 0
@@ -114,4 +114,4 @@ class Felix():
 					
 		bot.polling(none_stop=True, interval=0)
 
-Felix()
+ExchangeRateBot()
