@@ -6,7 +6,7 @@ from get_db import get_db
 from call_api import call_api
 from history_data_chart import history_data_chart
 
-bot = telebot.TeleBot('1852888912:AAFdknpL47ojMNfCvI3z7ebWqswBeLpR_Ck')
+bot = telebot.TeleBot('token')
 keyboard = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
 keyboard.row('Список валют', 'Конвертировать')
 keyboard.row('История', 'Помощь')
@@ -41,7 +41,7 @@ class Felix():
 		def list_message(message):
 			rates = ""
 			if self.timestamp == 0 or time.time() - self.timestamp > 600.0:
-				response = call_api("http://api.exchangeratesapi.io/v1/latest?access_key=eec35e191e074c3309d063e56d8b8bb8")
+				response = call_api("http://api.exchangeratesapi.io/v1/latest?access_key=api_key")
 				self.timestamp = time.time()
 				for k, v in response['rates'].items():
 					rates += k + ": " + str(float("{:.2f}".format(v))) + '\n'
@@ -92,7 +92,7 @@ class Felix():
 			today = datetime.date.today().strftime("%Y-%m-%d")
 			week_ago = (datetime.datetime.now() - datetime.timedelta(days=7)).date().strftime("%Y-%m-%d")
 			if len(data) == 3 and data[0] in currencies and data[1] == '/' and data[2] in currencies:
-				resp = call_api("https://fxmarketapi.com/apitimeseries?api_key=tLebbwTcgWc0aGrn1f79&currency=" + str(data[0]) + str(data[2]) + "&start_date=" + str(week_ago) + "&end_date=" + str(today) + "&format=close")
+				resp = call_api("https://fxmarketapi.com/apitimeseries?api_key=api_key&currency=" + str(data[0]) + str(data[2]) + "&start_date=" + str(week_ago) + "&end_date=" + str(today) + "&format=close")
 				for k in resp.keys():
 					if k == 'error':
 						bot.send_message(message.chat.id, 'Для этой пары валют нет данных')
@@ -101,7 +101,7 @@ class Felix():
 					photo = open(chart + ".png", 'rb')
 					bot.send_photo(message.chat.id, photo)
 			elif len(data) == 4 and data[0] == '/history' and data[1] in currencies and data[2] == '/' and data[3] in currencies:
-				resp = call_api("https://fxmarketapi.com/apitimeseries?api_key=tLebbwTcgWc0aGrn1f79&currency=" + str(data[1]) + str(data[3]) + "&start_date=" + str(week_ago) + "&end_date=" + str(today) + "&format=close")
+				resp = call_api("https://fxmarketapi.com/apitimeseries?api_key=api_key&currency=" + str(data[1]) + str(data[3]) + "&start_date=" + str(week_ago) + "&end_date=" + str(today) + "&format=close")
 				for k in resp.keys():
 					if k == 'error':
 						bot.send_message(message.chat.id, 'Для этой пары валют нет данных')
